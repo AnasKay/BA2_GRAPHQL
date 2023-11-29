@@ -1,0 +1,74 @@
+type Grade {
+    id: ID!
+    name: String!
+    maxStudents: Int!
+    professor: Professor!
+}
+
+input GradeInput {
+    id: ID
+    name: String
+    maxStudents: Int
+}
+
+type Student {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    emailId: String!
+    grade: Grade!
+}
+
+input StudentInput {
+    id: ID
+    firstName: String
+    lastName: String
+    emailId: String
+    grade: GradeInput
+}
+
+type Professor {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    emailId: String!
+}
+
+input ProfessorInput {
+    id: ID
+    firstName: String
+    lastName: String
+    emailId: String
+}
+
+type Query {
+    grades: [Grade]!
+    gradeById(id: ID): Grade
+    gradeByName(name: String): Grade
+    gradeByKV(kv: ProfessorInput): Grade
+
+    students: [Student]!
+    studentById(id: ID): Student
+    studentByEmail(emailId: String): Student
+    studentByLastName(lastName: String): [Student]
+
+    professors: [Professor]!
+    professorById(id: ID): Professor
+    professorByEmail(emailId: String): Professor
+    professorByLastName(lastName: String): [Professor]
+}
+
+type Mutation {
+    createGrade(grade: GradeInput): Grade
+    updateGrade(id: ID!, grade: GradeInput): Grade
+    deleteGrade(grade: GradeInput): Grade
+
+    createStudent(student: StudentInput): Student
+    updateStudent(id: ID!, student: StudentInput): Student
+    deleteStudent(student: StudentInput): Student
+
+    createProfessor(professor: ProfessorInput): Professor
+    updateProfessor(id: ID!, professor: ProfessorInput): Professor
+    deleteProfessor(professor: ProfessorInput): Professor
+}
+
